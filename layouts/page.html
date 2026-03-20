@@ -1,0 +1,51 @@
+{{ define "main" }}
+{{ if .TableOfContents }}
+<div class="lg:grid lg:grid-cols-[200px_1fr] lg:gap-16">
+
+  {{/* mobile: collapsible toc */}}
+  <details class="lg:hidden mb-8 border border-zinc-800 p-4 text-sm">
+    <summary class="text-zinc-400 cursor-pointer mb-3">contents</summary>
+    <nav class="toc-nav">{{ .TableOfContents }}</nav>
+  </details>
+
+  {{/* desktop: sticky sidebar toc */}}
+  <aside class="hidden lg:block">
+    <div class="toc-container">
+      <p class="text-xs text-zinc-600 mb-3 uppercase tracking-widest">contents</p>
+      <nav class="toc-nav">{{ .TableOfContents }}</nav>
+    </div>
+  </aside>
+
+  <article class="space-y-6 min-w-0">
+    <header class="space-y-1 border-b border-zinc-800 pb-6">
+      <h1>{{ .Title }}</h1>
+      <div class="flex gap-4 text-xs text-zinc-600">
+        {{ if not .Date.IsZero }}<time>{{ .Date.Format "2006-01-02" }}</time>{{ end }}
+        {{ with .Params.tags }}
+        <div class="flex gap-2">
+          {{ range . }}<span># {{ . }}</span>{{ end }}
+        </div>
+        {{ end }}
+      </div>
+    </header>
+    <div class="prose-content">{{ .Content }}</div>
+  </article>
+
+</div>
+{{ else }}
+<article class="space-y-6">
+  <header class="space-y-1 border-b border-zinc-800 pb-6">
+    <h1>{{ .Title }}</h1>
+    <div class="flex gap-4 text-xs text-zinc-600">
+      {{ if not .Date.IsZero }}<time>{{ .Date.Format "2006-01-02" }}</time>{{ end }}
+      {{ with .Params.tags }}
+      <div class="flex gap-2">
+        {{ range . }}<span># {{ . }}</span>{{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </header>
+  <div class="prose-content">{{ .Content }}</div>
+</article>
+{{ end }}
+{{ end }}

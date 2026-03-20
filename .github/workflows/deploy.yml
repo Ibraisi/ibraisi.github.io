@@ -1,0 +1,81 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**'
+      - 'layouts/**'
+      - 'assets/**'
+      - 'static/**'
+      - 'archetypes/**'
+      - 'i18n/**'
+      - 'data/**'
+      - 'themes/**'
+      - 'cv/**'
+      - 'hugo.toml'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install JS deps
+        run: npm ci
+
+      - name: Lint markdown
+        run: npx markdownlint-cli2 "content/**/*.md"
+
+      - name: Check formatting
+        run: npx prettier --check "content/**/*.md" "assets/**/*.css"
+
+      - name: Install Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.158.0'
+          extended: true
+
+      - name: Install Typst
+        uses: typst-community/setup-typst@v4
+
+      - name: Compile CV
+        run: typst compile cv/cv.typ static/cv.pdf
+
+      - name: Build
+        run: hugo --minify
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

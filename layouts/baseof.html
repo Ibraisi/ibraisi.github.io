@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="{{ site.Language.LanguageCode }}" dir="{{ with site.Language.LanguageDirection }}{{ . }}{{ else }}ltr{{ end }}">
+  <head>{{ partial "head.html" . }}</head>
+  <body>
+    {{ partial "header.html" . }}
+    <main>
+      <div class="mx-auto w-full max-w-4xl px-4 py-6">
+        {{ block "main" . }}{{ end }}
+      </div>
+    </main>
+    {{ partial "footer.html" . }}
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{{ define "main" }}
+<article class="space-y-8">
+
+  <header class="space-y-3 border-b border-zinc-800 pb-6">
+    <h1>{{ .Title }}</h1>
+    <div class="flex flex-wrap items-center gap-4 text-xs text-zinc-600">
+      {{ if not .Date.IsZero }}<time>{{ .Date.Format "2006-01-02" }}</time>{{ end }}
+      {{ with .Params.rating }}
+      <span class="tracking-widest">{{ $r := . }}{{ range seq 5 }}{{ if le . $r }}●{{ else }}○{{ end }}{{ end }}</span>
+      {{ end }}
+      {{ with .Params.author }}<span>{{ . }}</span>{{ end }}
+      {{ with .Params.link }}
+      <a href="{{ . }}" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-300 transition-colors">read online →</a>
+      {{ end }}
+    </div>
+  </header>
+
+  <div class="prose-content">{{ .Content }}</div>
+
+</article>
+{{ end }}

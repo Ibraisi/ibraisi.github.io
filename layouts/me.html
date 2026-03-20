@@ -1,0 +1,37 @@
+{{ define "main" }}
+{{ $p := .Params }}
+<div class="space-y-10">
+  <h1>{{ .Title }}</h1>
+
+  {{ .Content }}
+
+  <div class="grid md:grid-cols-3 gap-8 border-t border-zinc-800 pt-8">
+    {{ with $p.likes }}
+    <div class="space-y-3">
+      <h2 class="text-xs uppercase tracking-widest text-zinc-600 font-normal">{{ i18n "likes" }}</h2>
+      <ul class="space-y-1">
+        {{ range . }}<li class="text-sm text-zinc-400">{{ . | markdownify }}</li>{{ end }}
+      </ul>
+    </div>
+    {{ end }}
+
+    {{ with $p.dislikes }}
+    <div class="space-y-3">
+      <h2 class="text-xs uppercase tracking-widest text-zinc-600 font-normal">{{ i18n "dislikes" }}</h2>
+      <ul class="space-y-1">
+        {{ range . }}<li class="text-sm text-zinc-400">{{ . | markdownify }}</li>{{ end }}
+      </ul>
+    </div>
+    {{ end }}
+
+    {{ with $p.hobbies }}
+    <div class="space-y-3">
+      <h2 class="text-xs uppercase tracking-widest text-zinc-600 font-normal">{{ i18n "hobbies" }}</h2>
+      <ul class="space-y-1">
+        {{ range . }}<li class="text-sm text-zinc-400">{{ . | markdownify }}</li>{{ end }}
+      </ul>
+    </div>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,73 @@
+{{ define "main" }}
+{{ $p := .Params }}
+<div class="space-y-12">
+
+  {{/* — intro block — */}}
+  <div class="grid md:grid-cols-[1fr_2fr] gap-8 items-start">
+    {{ with $p.portraitImage }}
+    <div class="relative max-w-[160px] shrink-0 self-start">
+      <img src="{{ . }}" alt="Portrait" class="w-full block grayscale opacity-75" />
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0a0a0a]"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#0a0a0a] opacity-60"></div>
+    </div>
+    {{ end }}
+    <div class="space-y-3">
+      {{ with $p.introTitle }}<h1>{{ . }}</h1>{{ end }}
+      {{ with $p.introBody }}<div class="text-zinc-400 leading-relaxed">{{ . | markdownify }}</div>{{ end }}
+    </div>
+  </div>
+
+  {{/* — now block — */}}
+  {{ if $p.learning }}
+  <div class="space-y-4 pt-8">
+    <div class="flex items-center gap-4 -mt-2 mb-2">
+      <div class="flex-1 h-px bg-zinc-800"></div>
+      <span class="text-zinc-700 text-xs leading-none select-none">۞</span>
+      <div class="flex-1 h-px bg-zinc-800"></div>
+    </div>
+    <h2 class="text-xs uppercase tracking-widest text-zinc-600 font-normal">{{ i18n "now" }}</h2>
+    <div class="space-y-3">
+      {{ range $p.learning }}
+      <div>
+        <p class="text-zinc-500 text-sm" style="margin-bottom:0">
+          {{ i18n "learning" }}
+          {{ if .url }}<a href="{{ .url }}" class="text-zinc-300 underline underline-offset-2">{{ end }}
+          {{ .text }}
+          {{ if .url }}</a>{{ end }}
+        </p>
+        {{ with .desc }}
+        <div class="border-l border-zinc-800 pl-3 mt-2">
+          <p class="text-zinc-600 text-xs leading-relaxed" style="margin-bottom:0">{{ . }}</p>
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  {{/* — recent posts — */}}
+  {{ $candidates := where site.RegularPages "Type" "eq" "writing" }}
+  {{ if lt (len $candidates) 1 }}{{ $candidates = site.RegularPages }}{{ end }}
+  {{ if $candidates }}
+  <div class="space-y-4 pt-8">
+    <div class="flex items-center gap-4 -mt-2 mb-2">
+      <div class="flex-1 h-px bg-zinc-800"></div>
+      <span class="text-zinc-700 text-xs leading-none select-none">۞</span>
+      <div class="flex-1 h-px bg-zinc-800"></div>
+    </div>
+    <h2 class="text-xs uppercase tracking-widest text-zinc-600 font-normal">{{ i18n "recent" }}</h2>
+    <div class="space-y-1">
+      {{ range first 5 (sort $candidates "Date" "desc") }}
+      <div class="flex items-baseline justify-between gap-4 py-1 border-b border-zinc-900">
+        <a href="{{ .RelPermalink }}" class="text-zinc-300 text-sm hover:text-white transition-colors">{{ .Title }}</a>
+        <span class="text-zinc-700 text-xs shrink-0">{{ .Date.Format "2006-01-02" }}</span>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  {{ .Content }}
+</div>
+{{ end }}

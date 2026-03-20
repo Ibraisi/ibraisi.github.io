@@ -1,0 +1,20 @@
+{{ define "main" }}
+<div class="space-y-8">
+  <h1>{{ .Title }}</h1>
+  {{ with .Content }}<div class="text-zinc-500 text-sm">{{ . }}</div>{{ end }}
+
+  <div class="space-y-0 border-t border-zinc-800 pt-6">
+    {{ range sort .Pages "Date" "desc" }}
+    <a href="{{ .RelPermalink }}" class="flex items-baseline justify-between gap-4 py-3 border-b border-zinc-900 group">
+      <span class="text-zinc-300 text-sm group-hover:text-white transition-colors">{{ .Title }}</span>
+      <div class="flex items-center gap-4 shrink-0">
+        <span class="text-zinc-600 text-xs tracking-widest">
+          {{ $r := .Params.rating }}{{ range seq 5 }}{{ if le . $r }}●{{ else }}○{{ end }}{{ end }}
+        </span>
+        <span class="text-zinc-700 text-xs">{{ .Date.Format "2006-01-02" }}</span>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

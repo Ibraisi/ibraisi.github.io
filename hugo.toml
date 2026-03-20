@@ -1,0 +1,76 @@
+baseURL = "https://ibraisi.github.io/"
+title = "Ibrahim Iskif"
+defaultContentLanguage = "en"
+
+[languages]
+  [languages.en]
+    languageName = "en"
+    languageCode = "en-us"
+    weight = 1
+    [languages.en.params]
+      description = "Software engineer based in Sweden. I write about systems, tools, and ideas — and share notes on talks and podcasts I find worth the time."
+
+  [languages.ar]
+    languageName = "ع"
+    languageCode = "ar"
+    languageDirection = "rtl"
+    weight = 2
+    title = "ابراهيم اسكيف"
+    [languages.ar.params]
+      description = "مهندس برمجيات. أكتب عن الأنظمة والأدوات والأفكار."
+
+[outputs]
+  home = ["html", "sitemap"]
+  page = ["html"]
+  section = ["html"]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    noClasses = false
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 2
+
+[taxonomies]
+
+[params]
+  description = "Software engineer based in Sweden. I write about systems, tools, and ideas — and share notes on talks and podcasts I find worth the time."
+  googleVerification = "EdrWjFMQB5ocahFdoKUPYg23k6dCqIMoM2VuHXDYt6M"
+
+[[languages.en.menus.main]]
+  name = "me"
+  pageRef = "/me"
+  weight = 1
+
+[[languages.en.menus.main]]
+  name = "writing"
+  pageRef = "/writing"
+  weight = 2
+
+[[languages.en.menus.main]]
+  name = "picks"
+  pageRef = "/picks"
+  weight = 3
+
+[[languages.en.menus.main]]
+  name = "cv"
+  url = "/cv.pdf"
+  weight = 4
+
+[[languages.ar.menus.main]]
+  name = "أنا"
+  pageRef = "/me"
+  weight = 1
+
+[[languages.ar.menus.main]]
+  name = "كتابات"
+  pageRef = "/writing"
+  weight = 2
+
+[[languages.ar.menus.main]]
+  name = "سيرة"
+  url = "/cv.pdf"
+  weight = 3

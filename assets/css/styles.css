@@ -1,0 +1,218 @@
+@import "tailwindcss";
+@source "../../layouts/**/*.html";
+@source "../../content/**/*.md";
+
+html {
+  background-color: #0a0a0a;
+}
+
+body {
+  color: #e4e4e7;
+  font-family: "Fira Code", monospace;
+  line-height: 1.8;
+  margin: 0;
+  font-size: 14px;
+}
+
+/* --- links --- */
+a {
+  color: #e4e4e7;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover:not(.block):not(.nav-link) {
+  color: #ffffff;
+}
+
+p a,
+li a:not(nav a),
+article a:not(.block) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: #52525b;
+}
+
+p a:hover,
+li a:not(nav a):hover {
+  text-decoration-color: #e4e4e7;
+}
+
+/* --- headings --- */
+h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 1.5rem 0 0.5rem;
+}
+h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 1rem 0 0.25rem;
+}
+h4,
+h5,
+h6 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #a1a1aa;
+  margin: 0.75rem 0 0.25rem;
+}
+
+/* --- prose --- */
+p {
+  margin-bottom: 1rem;
+  color: #d4d4d8;
+}
+
+blockquote {
+  border-left: 1px solid #3f3f46;
+  padding-left: 1rem;
+  margin-left: 0;
+  margin-bottom: 1rem;
+  color: #71717a;
+  font-style: italic;
+}
+
+hr {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid #27272a;
+}
+
+/* --- lists --- */
+ul {
+  list-style: none;
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+ul li {
+  position: relative;
+  padding-left: 1.25rem;
+  color: #d4d4d8;
+}
+
+ul li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: #52525b;
+}
+
+ul li:has(input[type="checkbox"]) {
+  padding-left: 0;
+}
+
+ul li:has(input[type="checkbox"])::before {
+  display: none;
+}
+
+ol {
+  list-style: decimal;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+  color: #d4d4d8;
+}
+
+nav ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+nav ul li::before {
+  display: none;
+}
+nav ul li {
+  padding-left: 0;
+}
+
+/* --- code --- */
+code {
+  font-family: "Fira Code", monospace;
+  font-size: 13px;
+  background: #18181b;
+  color: #a1a1aa;
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+}
+
+pre {
+  background: #18181b;
+  border: 1px solid #27272a;
+  padding: 1rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  color: #d4d4d8;
+}
+
+/* --- aside / joke text --- */
+.aside {
+  display: block;
+  font-size: 12px;
+  color: #52525b;
+  padding-left: 1rem;
+  border-left: 1px solid #27272a;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* --- islamic theme --- */
+.bismillah {
+  font-family: "Amiri", serif;
+  direction: rtl;
+  unicode-bidi: embed;
+}
+
+/* --- toc --- */
+.toc-container {
+  position: sticky;
+  top: 2rem;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+}
+
+.toc-nav ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  space-y: 0;
+}
+
+.toc-nav ul li {
+  padding-left: 0;
+}
+.toc-nav ul li::before {
+  display: none;
+}
+
+.toc-nav a {
+  display: block;
+  font-size: 13px;
+  color: #52525b;
+  text-decoration: none;
+  padding: 0.2rem 0;
+  transition: color 0.15s ease;
+}
+
+.toc-nav a:hover {
+  color: #e4e4e7;
+}
+
+@media (max-width: 768px) {
+  .toc-container {
+    display: none;
+  }
+}

@@ -1,0 +1,37 @@
+{{ define "main" }}
+{{ $videoID := replaceRE `.*(?:youtu\.be/|[?&]v=)([a-zA-Z0-9_-]{11}).*` "$1" .Params.video }}
+<article class="space-y-8">
+
+  <header class="space-y-3 border-b border-zinc-800 pb-6">
+    <h1>{{ .Title }}</h1>
+    <div class="flex flex-wrap items-center gap-4 text-xs text-zinc-600">
+      {{ if not .Date.IsZero }}<time>{{ .Date.Format "2006-01-02" }}</time>{{ end }}
+      {{ with .Params.rating }}
+      <span class="tracking-widest">{{ $r := . }}{{ range seq 5 }}{{ if le . $r }}●{{ else }}○{{ end }}{{ end }}</span>
+      {{ end }}
+      {{ with .Params.video }}
+      <a href="{{ . }}" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-300 transition-colors">watch on youtube →</a>
+      {{ end }}
+    </div>
+  </header>
+
+  <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-10 lg:items-start space-y-8 lg:space-y-0">
+
+    <div class="prose-content">{{ .Content }}</div>
+
+    {{ if $videoID }}
+    <a href="{{ .Params.video }}" target="_blank" rel="noopener" class="block group lg:sticky lg:top-8 shrink-0">
+      <div class="aspect-video overflow-hidden border border-zinc-800 group-hover:border-zinc-700 transition-colors">
+        <img
+          src="https://img.youtube.com/vi/{{ $videoID }}/maxresdefault.jpg"
+          alt="{{ .Title }}"
+          class="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-opacity"
+        />
+      </div>
+    </a>
+    {{ end }}
+
+  </div>
+
+</article>
+{{ end }}
