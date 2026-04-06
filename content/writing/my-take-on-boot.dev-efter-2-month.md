@@ -1,7 +1,7 @@
 ---
 title: "My Take on Boot.dev After 2 Months"
 date: "2026-03-30T19:45:03+02:00"
-draft: true
+draft: false
 ---
 
 AI models got better. I was getting worse.
